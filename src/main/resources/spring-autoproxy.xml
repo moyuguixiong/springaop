@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+ <!-- spring AOP的传统的自动代理分为两种：1、基于容器bean中对象id名称的自动代理。2、容器中所有bean被自动代理 -->
+ <!-- 被代理对象1 -->
+ <bean id="targetClass1" class="org.jinlibrary.aop.autoproxy.TargetObject" />
+ <!-- 被代理对象2 -->
+ <bean id="targetClass2" class="org.jinlibrary.aop.autoproxy.TargetObject2" />
+
+ <!-- 前置和后置结合的增强 -->
+ <bean id="myBeforeAndAfterAdvice" class="org.jinlibrary.aop.autoproxy.BeforeAndAfterAdvice" />
+ <!-- 带有切点的切面 -->
+ <bean id="myAdvisor"
+  class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+  <property name="pattern" value="org\.jinlibrary\.aop\.autoproxy\..*\.save.+" />
+  <property name="advice" ref="myBeforeAndAfterAdvice" />
+ </bean>
+
+ <!-- spring容器中所有bean对象都被代理，一般不使用 -->
+ <!-- <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+  /> -->
+ <!-- 基于id名称的自动代理，可以对特定对象进行代理 -->
+ <bean
+  class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+  <property name="beanNames" value="targetClass1" />
+  <property name="interceptorNames" value="myAdvisor" />
+ </bean>
+
+</beans>

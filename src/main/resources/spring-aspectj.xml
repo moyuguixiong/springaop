@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+ xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+ <!-- 被代理对象1 -->
+ <bean id="targetObject1" class="org.jinlibrary.aop.aspectj.TargetObject1" />
+ <!-- 被代理对象2 -->
+ <bean id="targetObject2" class="org.jinlibrary.aop.aspectj.TargetObject2" />
+
+ <!-- 增强-可以包括所有类型的增强 -->
+ <bean id="myAdvice" class="org.jinlibrary.aop.aspectj.AdviceForXml" />
+
+ <!-- aspectj自动生成代理 -->
+ <aop:config>
+  <!-- 使用aspectj的切点表达式，定义切点 -->
+  <aop:pointcut expression="execution(* org.jinlibrary.aop.aspectj..*.divide*(..))"
+   id="myPointcut" />
+  <aop:aspect ref="myAdvice">
+   <aop:around method="around" pointcut-ref="myPointcut" />
+   <aop:after-returning method="afterReturning"
+    pointcut-ref="myPointcut" returning="returnValue" />
+  </aop:aspect>
+ </aop:config>
+
+</beans>

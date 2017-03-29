@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+ xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+ <!-- 被代理对象1 -->
+ <bean id="targetObject1" class="org.jinlibrary.aop.aspectj.TargetObject1" />
+ <!-- 被代理对象2 -->
+ <bean id="targetObject2" class="org.jinlibrary.aop.aspectj.TargetObject2" />
+
+ <!-- 增强类必须在spring容器中 -->
+ <bean id="myAdvice" class="org.jinlibrary.aop.aspectj.AdviceForAnnotation" />
+
+ <!-- 打开aspectj注解扫描 -->
+ <aop:aspectj-autoproxy />
+</beans>

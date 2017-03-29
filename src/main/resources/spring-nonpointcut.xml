@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+ <!-- 被代理对象 -->
+ <bean id="testClass" class="org.jinlibrary.aop.nonpointcut.TestClass" />
+ <!-- 前置增强通知 -->
+ <bean id="myAdviceBefore" class="org.jinlibrary.aop.nonpointcut.BeforeAdvice" />
+ <!-- 后置增强通知 -->
+ <bean id="myAdviceAfterReturning" class="org.jinlibrary.aop.nonpointcut.AfterAdvice" />
+ <!-- 环绕增强通知 -->
+ <bean id="myAdviceAround" class="org.jinlibrary.aop.nonpointcut.AroundAdvice" />
+
+ <!-- 生成代理对象-前置增强 (没有切点，被增强对象的所有方法都被增强了) -->
+ <bean id="proxyForTestClassBefore" class="org.springframework.aop.framework.ProxyFactoryBean">
+  <property name="target" ref="testClass" />
+  <property name="interceptorNames" value="myAdviceBefore" />
+ </bean>
+
+ <!--生成代理对象-后置增强(没有切点，被增强对象的所有方法都被增强了) -->
+ <bean id="proxyForTestClassAfterReturning" class="org.springframework.aop.framework.ProxyFactoryBean">
+  <property name="target" ref="testClass" />
+  <property name="interceptorNames" value="myAdviceAfterReturning" />
+ </bean>
+
+ <!--生成代理对象-环绕增强(没有切点，被增强对象的所有方法都被增强了) -->
+ <bean id="proxyForTestClassAround" class="org.springframework.aop.framework.ProxyFactoryBean">
+  <property name="target" ref="testClass" />
+  <property name="interceptorNames" value="myAdviceAround" />
+ </bean>
+
+</beans>

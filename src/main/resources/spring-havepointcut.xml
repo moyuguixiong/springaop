@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+ <!-- 被代理对象 -->
+ <bean id="targetObject" class="org.jinlibrary.aop.havepointcut.TargetObject" />
+ <!-- 环绕增强通知 -->
+ <bean id="myAdviceAround" class="org.jinlibrary.aop.havepointcut.AroundAdvice" />
+ <!-- 定义带切点的切面 -->
+ <bean id="myAdvisor"
+  class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+  <property name="pattern"
+   value="org\.jinlibrary\.aop\.havepointcut\.TargetObject\.say.+" />
+  <property name="advice" ref="myAdviceAround" />
+ </bean>
+
+ <!-- 生成代理对象 -->
+ <bean id="proxyForTargetObject" class="org.springframework.aop.framework.ProxyFactoryBean">
+  <property name="target" ref="targetObject" />
+  <property name="interceptorNames" value="myAdvisor" />
+ </bean>
+</beans>
