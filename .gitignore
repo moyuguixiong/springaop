@@ -1,5 +1,19 @@
 # Object file
-*.o
+/.settings/
+.settings/*
+/*/.settings
+/*/.settings/*
+/target/
+tatget/*
+/*/target/
+/*/target/*
+/.project
+/.classpath
+/*/.project
+/*/.classpath
+/.springBeans
+/*/.springBeans
 
-# Ada Library Information
-*.ali
+.project
+.classpath
+.springBeans
